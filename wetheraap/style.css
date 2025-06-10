@@ -1,0 +1,257 @@
+:root {
+  --primary-color: #4361ee;
+  --secondary-color: #3f37c9;
+  --accent-color: #4cc9f0;
+  --light-bg: #f8f9fa;
+  --dark-bg: #212529;
+  --text-light: #f8f9fa;
+  --text-dark: #212529;
+  --card-bg: #ffffff;
+  --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] {
+  --primary-color: #4cc9f0;
+  --secondary-color: #4361ee;
+  --accent-color: #3f37c9;
+  --light-bg: #212529;
+  --dark-bg: #f8f9fa;
+  --text-light: #212529;
+  --text-dark: #f8f9fa;
+  --card-bg: #2b3035;
+  --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--light-bg);
+  color: var(--text-dark);
+  transition: all 0.3s ease;
+}
+
+.search-container {
+  display: flex;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 30px;
+  overflow: hidden;
+  max-width: 500px;
+  position: relative; /* Add this */
+}
+
+#cityInput {
+  flex: 1;
+  padding: 12px 20px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  padding-right: 50px; /* Add space for the icon */
+}
+
+#searchBtn {
+  background-color: var(--primary-color); /* Purple color from your theme */
+  color: white;
+  border: none;
+  padding: 0 25px;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: absolute; /* Position absolutely within container */
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 50px; /* Fixed width for the button */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#searchBtn:hover {
+  background-color: var(--secondary-color); /* Darker purple on hover */
+}
+
+/* Remove the default button styling */
+#searchBtn i {
+  margin: 0; /* Remove any default margins */
+}
+
+#wrapper {
+  min-height: 100vh;
+}
+
+#sidebar {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  width: 250px;
+  min-height: 100vh;
+  transition: all 0.3s;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#sidebar h4 {
+  font-weight: 600;
+  padding: 15px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-link {
+  padding: 12px 15px;
+  margin: 5px 0;
+  border-radius: 5px;
+  transition: all 0.3s;
+  font-weight: 500;
+}
+
+.nav-link:hover, .nav-link.active {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateX(5px);
+}
+
+.nav-link i {
+  margin-right: 10px;
+  width: 20px;
+  text-align: center;
+}
+
+#content {
+  flex: 1;
+  padding: 20px;
+  background-color: var(--light-bg);
+}
+
+.search-container {
+  display: flex;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 30px;
+  overflow: hidden;
+  max-width: 500px;
+}
+
+#cityInput {
+  flex: 1;
+  padding: 12px 20px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
+
+#searchBtn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0 25px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+#searchBtn:hover {
+  background-color: var(--secondary-color);
+}
+
+.datetime-container {
+  background-color: var(--card-bg);
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: var(--card-shadow);
+  margin-bottom: 20px;
+}
+
+.page-section {
+  background-color: var(--card-bg);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: var(--card-shadow);
+  margin-bottom: 20px;
+}
+
+.weather-card {
+  background-color: var(--card-bg);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.3s;
+}
+
+.weather-card:hover {
+  transform: translateY(-5px);
+}
+
+.forecast-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.hourly-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+#mapView {
+  height: 500px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+}
+
+.calendar-day {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  border-radius: 5px;
+  transition: all 0.3s;
+}
+
+.calendar-day:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.temp-high {
+  color: #ff6b6b;
+  font-weight: 600;
+}
+
+.temp-low {
+  color: #4cc9f0;
+  font-weight: 600;
+}
+
+.weather-icon {
+  width: 50px;
+  height: 50px;
+}
+
+.btn-theme {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+@media (max-width: 768px) {
+  #sidebar {
+    width: 100%;
+    min-height: auto;
+  }
+  
+  #wrapper {
+    flex-direction: column;
+  }
+  
+  .forecast-card-grid {
+    grid-template-columns: 1fr;
+  }
+}

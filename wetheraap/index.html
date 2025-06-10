@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NeuraWeather</title>
+  <link rel="icon" href="NeuraWeather.png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="d-flex" id="wrapper">
+
+  <!-- Sidebar -->
+  <div class="text-white p-3" id="sidebar">
+    <h4 class="text-center"><i class="fas fa-cloud-sun"></i> NeuraWeather</h4>
+    <ul class="nav flex-column mt-4">
+      <li class="nav-item"><a class="nav-link text-white active" href="index.html" onclick="switchPage('current')"><i class="home"></i> Home</a></li>
+      <li class="nav-item"><a class="nav-link text-white" href="#" onclick="switchPage('hourly')"><i class="clock"></i> Hourly</a></li>
+      <li class="nav-item"><a class="nav-link text-white" href="#" onclick="switchPage('daily')"><i class="week"></i> 5-Day</a></li>
+      <li class="nav-item"><a class="nav-link text-white" href="#" onclick="switchPage('map')"><i class="map-marked-alt"></i> Map</a></li>
+      <li class="nav-item"><a class="nav-link text-white" href="#" onclick="switchPage('calendar')"><i class="calendar-alt"></i> Calendar</a></li>
+      <li class="nav-item"><a class="nav-link text-white" href="#" onclick="switchPage('settings')"><i class="cog"></i> Settings</a></li>
+    </ul>
+  </div>
+
+  <!-- Page Content -->
+  <div class="container-fluid p-4" id="content">
+
+    <!-- Search input -->
+<div class="search-container">
+  <input id="cityInput" type="text" placeholder="Search for a city..." value="Ahmedabad" />
+  <button id="searchBtn"><i class="fas fa-search"></i></button>
+</div>
+
+    <!-- Date, Time, Day Section -->
+    <div class="datetime-container">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h5 id="currentDay" class="mb-0"><i class="calendar-day"></i> Monday, June 10</h5>
+          <p id="currentDateTime" class="mb-0 text-muted"><i class="clock"></i> <span id="currentTime">10:30 AM</span></p>
+        </div>
+        <div id="currentLocation" class="text-end">
+          <h5 class="mb-0"><i class="map-marker-alt"></i> <span id="locationName">Ahmedabad</span></h5>
+          <p class="mb-0 text-muted" id="currentConditions">Sunny</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="page-current" class="page-section">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0"><i class="-cloud-sun me-2"></i>Current Weather</h2>
+        <div class="d-flex align-items-center">
+          <h1 class="display-4 mb-0 me-3" id="currentTemp">24°C</h1>
+          <img id="currentWeatherIcon" src="https://openweathermap.org/img/wn/01d@2x.png" alt="Weather icon" width="60">
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <div class="weather-card h-100">
+            <h5><i class="info-circle me-2"></i>Details</h5>
+            <div class="row mt-3">
+              <div class="col-6">
+                <p><i class="temperature-high me-2"></i> Feels Like: <span id="feelsLike">25°C</span></p>
+                <p><i class="tint me-2"></i> Humidity: <span id="humidity">65%</span></p>
+              </div>
+              <div class="col-6">
+                <p><i class="wind me-2"></i> Wind: <span id="windSpeed">12 km/h</span></p>
+                <p><i class="compress-alt me-2"></i> Pressure: <span id="pressure">1012 hPa</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <div class="weather-card h-100">
+            <h5><i class="fas fa-sun me-2"></i>Sun & Visibility</h5>
+            <div class="row mt-3">
+              <div class="col-6">
+                <p><i class="sunrise me-2"></i> Sunrise: <span id="sunrise">5:45 AM</span></p>
+                <p><i class="sunset me-2"></i> Sunset: <span id="sunset">8:30 PM</span></p>
+              </div>
+              <div class="col-6">
+                <p><i class="eye me-2"></i> Visibility: <span id="visibility">10 km</span></p>
+                <p><i class="cloud me-2"></i> Clouds: <span id="cloudCover">20%</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="wea her-card">
+        <h5><i class="umbrella me-2"></i>Today's Forecast</h5>
+        <div id="todayForecast" class="mt-3">
+          <!-- Today's forecast items will be inserted here -->
+        </div>
+      </div>
+    </div>
+
+    <div id="page-hourly" class="page-section d-none">
+      <h2><i class="clock me-2"></i>Hourly Forecast</h2>
+      <div class="weather-card">
+        <div id="hourlyForecast" class="mt-3">
+          <!-- Hourly forecast items will be inserted here -->
+        </div>
+      </div>
+    </div>
+
+    <div id="page-daily" class="page-section d-none">
+      <h2><i class="calendar-week me-2"></i>5-Day Forecast</h2>
+      <div id="dailyForecast" class="forecast-card-grid mt-3">
+        <!-- Daily forecast cards will be inserted here -->
+      </div>
+    </div>
+
+    <div id="page-map" class="page-section d-none">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="mb-0"><i class="map-marked-alt me-2"></i>Map View</h2>
+      </div>
+      <div id="mapView"></div>
+    </div>
+
+    <div id="page-calendar" class="page-section d-none">
+      <h2><i class="calendar-alt me-2"></i>Calendar</h2>
+      <div class="d-flex flex-wrap align-items-center gap-3 mb-3">
+        <select id="monthSelect" class="form-select w-auto">
+          <option value="all">All Months</option>
+          <option value="0">January</option><option value="1">February</option><option value="2">March</option>
+          <option value="3">April</option><option value="4">May</option><option value="5">June</option>
+          <option value="6">July</option><option value="7">August</option><option value="8">September</option>
+          <option value="9">October</option><option value="10">November</option><option value="11">December</option>
+        </select>
+
+        <select id="yearSelect" class="form-select w-auto"></select>
+      </div>
+      <div id="calendarContainer" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-3"></div>
+    </div>
+
+    <div id="page-settings" class="page-section d-none">
+      <h2><i class="cog me-2"></i>Settings</h2>
+      <div class="weather-card">
+        <div class="mb-3">
+          <label class="form-label">Temperature Unit:</label>
+          <select id="tempUnit" class="form-select w-auto">
+            <option value="metric">Celsius (°C)</option>
+            <option value="imperial">Fahrenheit (°F)</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Wind Speed Unit:</label>
+          <select id="windUnit" class="form-select w-auto">
+            <option value="kmh">km/h</option>
+            <option value="mph">mph</option>
+            <option value="ms">m/s</option>
+          </select>
+        </div>
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" id="darkModeToggle">
+          <label class="form-check-label" for="darkModeToggle">Dark Mode</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button class="btn-theme" id="toggleThemeBtn">
+  <i class="moon" id="themeIcon"></i>
+</button>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
